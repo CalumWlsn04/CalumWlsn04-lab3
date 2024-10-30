@@ -6,26 +6,96 @@ import java.io.FileNotFoundException;
 
 public class WordCounter {
 
-    int processText(StringBuffer text, String stopword)
+    public static int main(String[] args) throws EmptyFileException, TooSmallText, InvalidStopwordException
     {
-        boolean wholeFile = false;
-        int counter = 0;
-
-        if (text.equals(null))
+        String option = "";
+        while(!option.equals("1") || !option.equals("2"))
         {
-            wholeFile = true;
+            if(!option.equals(""))
+            {
+                System.out.println("You have entered bad input, please put in better input");
+            }
+            Scanner input = new Scanner(System.in);
+            System.out.println("Please enter an option 1 or option 2: ");
+            option = input.nextLine();
         }
 
-        Pattern regex = Pattern.compile("your regular expression here");
+        if (option.equals("1"))
+        {
+            String path = "";
+            String stopword = "";
+
+            try
+            {
+                path = args[0];
+                if (args.length > 1)
+                {
+                    stopword = args[1];
+                    //if its a bad input
+                }
+                else
+                {
+                    stopword = null;
+                }
+                StringBuffer buffer = new StringBuffer();
+                buffer = processFile(path);
+
+                int counter = processText(buffer, stopword);
+                return counter;
+
+
+            }
+            catch(InvalidStopwordException e)
+            {
+                System.out.println("BAD");
+            }
+
+        }
+        else if (option.equals("2"))
+        {
+            System.out.println("Please enter a string for the input: ");
+            Scanner input = new Scanner(System.in);
+
+            String text = input.nextLine();
+            StringBuffer buffer = new StringBuffer(text);
+            int counter = processText(buffer, null);
+            return counter;
+        }
+        return 0;
+    }
+
+    static int processText(StringBuffer text, String stopword) throws TooSmallText, InvalidStopwordException
+    {
+        //boolean wholeFile = false;
+        int counter = 0;
+
+        //System.out.println("This is the text: " + text);
+        System.out.println("HELLO");
+
+        Pattern regex = Pattern.compile("\\w+");
         Matcher regexMatcher = regex.matcher(text);
         while (regexMatcher.find()) {
+            if (!stopword.equals(null) && regexMatcher.group().equals(stopword))
+            {
+                counter++;
+                if (counter < 5)
+                {
+                    throw new TooSmallText(Integer.toString(counter));
+                }
+                return counter;
+            }
             System.out.println("I just found the word: " + regexMatcher.group());
             counter++;
         }
+        if (!stopword.equals(null))
+        {
+            throw new InvalidStopwordException(stopword);
+        }
+
         return counter;
     }
 
-    StringBuffer processFile(String path)
+    static StringBuffer processFile(String path) throws EmptyFileException
     {
         boolean forever = true;
         while(forever == true)
@@ -37,6 +107,10 @@ public class WordCounter {
                 {
                     System.out.println("This exists!");
                     StringBuffer buffed = new StringBuffer();
+                    if (file.length() == 0)
+                    {
+                        throw new EmptyFileException(path);
+                    }
 
                     while(input.hasNextLine())
                     {
@@ -62,6 +136,8 @@ public class WordCounter {
         }
         return null;
     }
+
+
 
 
 
