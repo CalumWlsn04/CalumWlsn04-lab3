@@ -32,7 +32,7 @@ public class Lab3_Tester {
     }
     return data;
   }
-
+ 
   @Test
   public void test1() {
     System.out.println("process long text with found stopword");
@@ -57,7 +57,7 @@ public class Lab3_Tester {
     } catch (Exception e) {}
     assertEquals(expected, result);
   }
-
+ 
   @Test
   public void test3() {
     System.out.println("process long text with missing stopword");
@@ -85,7 +85,7 @@ public class Lab3_Tester {
     } catch (Exception e) {}
     assertEquals(expected, result);
   }
-
+ 
   @Test
   public void test5() {
     System.out.println("process short text with missing stopword");
@@ -113,7 +113,7 @@ public class Lab3_Tester {
     } catch (Exception e) {}
     assertEquals(expected, result);
   }
-
+ 
   @Test
   public void test7() {
     System.out.println("process easy long text with end stopword");
@@ -125,7 +125,7 @@ public class Lab3_Tester {
     } catch (Exception e) {}
     assertEquals(expected, result);
   }
-
+ 
   @Test
   public void test8() {
     System.out.println("process found file");
@@ -145,7 +145,7 @@ public class Lab3_Tester {
     } catch (Exception e) {}
     assertEquals(expected, result.toString());
   }
-
+ 
   @Test
   public void test9() {
     System.out.println("process missing file");
@@ -222,7 +222,6 @@ public class Lab3_Tester {
         System.out.println("error in output redirection");
         e.printStackTrace();
       }
-
       String[] args = {"file1.txt", "than"};
       WordCounter.main(args);
       System.setOut(sysOutBackup); // optionally, reset System.in to its original
@@ -254,7 +253,6 @@ public class Lab3_Tester {
       InputStream sysInBackup = System.in; // backup System.in to restore it later
       ByteArrayInputStream in = new ByteArrayInputStream("1".getBytes());
       System.setIn(in);
-
       PrintStream sysOutBackup   = null;
       PrintStream output  = null;
       try {
@@ -338,7 +336,7 @@ public class Lab3_Tester {
     String expected = "TooSmallText: Only found 0 words.";
     assertEquals(expected, result);
   }
-
+ 
   @Test
   public void test14() {
     System.out.println("test main valid number choice 1 empty file");

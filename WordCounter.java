@@ -9,7 +9,7 @@ public class WordCounter {
     public static void main(String[] args) throws EmptyFileException, TooSmallText, InvalidStopwordException
     {
         int option = 0;
-        while(option != 1 && option != 2)
+        while(option != 1 && option != 2) //Makes sure that your input is correct, as in 1 or 2
         {
             if(option != 0)
             {
@@ -21,7 +21,7 @@ public class WordCounter {
             input.close();
         }
 
-        if (option == 1)
+        if (option == 1) //Tries to see if there is an argument or not within the try
         {
             String path = "";
             String stopword = "";
@@ -57,8 +57,6 @@ public class WordCounter {
                 {
                     System.out.println(e);
                 }
-
-
             }
             catch(InvalidStopwordException e)
             {
@@ -97,16 +95,16 @@ public class WordCounter {
             counter++;
         }
 
-        if (counter < 5)
+        if (counter < 5) //If the number of words in the file is less than 5, throw an error
         {
             throw new TooSmallText(Integer.toString(counter) + " ");
         }
-        if (stopword != null && found == false)
+        if (stopword != null && found == false) //If the stopward is not null but it was not found, then throw an error
         {
             throw new InvalidStopwordException(stopword);
         }
 
-        if (val == 0)
+        if (val == 0) //The val is equal to the counter if the stopward is never found
         {
             val = counter;
         }
@@ -116,22 +114,22 @@ public class WordCounter {
 
     static StringBuffer processFile(String path) throws EmptyFileException
     {
-        boolean forever = true;
+        boolean forever = true; //This loop will run forever
         while(forever == true)
         {
             try{
                 File file = new File(path);
                 Scanner input = new Scanner(file);
-                if (file.exists())
+                if (file.exists()) //Takes the path and gets the file
                 {
                     StringBuffer buffed = new StringBuffer();
-                    if (file.length() == 0)
+                    if (file.length() == 0) //A bad file
                     {
                         input.close();
                         throw new EmptyFileException(path);
                     }
 
-                    while(input.hasNextLine())
+                    while(input.hasNextLine()) //Appends a line in the stringbuffer
                     {
                         buffed.append(input.nextLine());
                     }
@@ -149,6 +147,6 @@ public class WordCounter {
                 input.close();
             }
         }
-        return null;
+        return null; //You should never get here
     }
 }
