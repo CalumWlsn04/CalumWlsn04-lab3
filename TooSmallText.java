@@ -4,6 +4,6 @@ public class TooSmallText extends IOException
 {
     public TooSmallText(String pass)
     {
-        super("Only found " + pass + " words.");
+        super("Only found " + pass + "words.");
     }
 }
