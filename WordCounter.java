@@ -18,22 +18,16 @@ public class WordCounter {
             Scanner input = new Scanner(System.in);
             System.out.println("Please enter an option 1 or option 2: ");
             option = input.nextInt();
-            //System.out.println("This is output: " +option);
-            //System.out.println(option != 1);
             input.close();
         }
-        
-        //System.out.println("HELLOOEE");
 
         if (option == 1)
         {
-            //System.out.println("In here");
             String path = "";
             String stopword = "";
 
             try
             {
-                //System.out.println("In herereer");
                 path = args[0];
 
                 if (args.length > 1)
@@ -68,7 +62,6 @@ public class WordCounter {
             }
             catch(InvalidStopwordException e)
             {
-                //System.out.println("BAD");
             }
 
         }
@@ -88,33 +81,22 @@ public class WordCounter {
 
     static int processText(StringBuffer text, String stopword) throws TooSmallText, InvalidStopwordException
     {
-        //boolean wholeFile = false;
         int counter = 0;
         boolean found = false;
         int val = 0;
 
-        //System.out.println("This is the text: " + text);
-        //System.out.println("This is text: " + text);
-
         Pattern regex = Pattern.compile("\\w+");
         Matcher regexMatcher = regex.matcher(text);
+
         while (regexMatcher.find()) {
             if (stopword != null && regexMatcher.group().equals(stopword) && found == false)
             {
-                //counter++;
                 found = true;
                 val = counter + 1;
-                //System.out.println("Found the stopword!");
-                //if (counter < 5)
-                //{
-                    //throw new TooSmallText(Integer.toString(counter));
-                //}
-                //return counter;
             }
-            //System.out.println("I just found the word: " + regexMatcher.group());
             counter++;
         }
-        //System.out.println("This is counter: " + counter);
+
         if (counter < 5)
         {
             throw new TooSmallText(Integer.toString(counter) + " ");
@@ -142,7 +124,6 @@ public class WordCounter {
                 Scanner input = new Scanner(file);
                 if (file.exists())
                 {
-                    //System.out.println("This exists!");
                     StringBuffer buffed = new StringBuffer();
                     if (file.length() == 0)
                     {
@@ -159,8 +140,6 @@ public class WordCounter {
                     
                 }
                 input.close();
-                //Scanner input = new Scanner(file);
-
             }
             catch(FileNotFoundException e)
             {
@@ -169,16 +148,7 @@ public class WordCounter {
                 path = input.nextLine();
                 input.close();
             }
-            /*catch(EmptyFileException e)
-            {
-
-            }*/
         }
         return null;
     }
-
-
-
-
-
 }
